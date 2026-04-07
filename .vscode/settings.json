@@ -15,5 +15,6 @@
     "**/.classpath": true,
     "**/.project": true,
     "**/.factorypath": true
-  }
+  },
+  "java.compile.nullAnalysis.mode": "automatic"
 }

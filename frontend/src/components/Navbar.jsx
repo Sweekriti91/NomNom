@@ -1,5 +1,3 @@
-import ThemeToggle from './ThemeToggle';
-
 const navItems = [
   { key: 'home', label: '🏠 Home' },
   { key: 'restaurants', label: '🍽️ Restaurants' },
@@ -26,19 +24,15 @@ export default function Navbar({ currentPage, onNavigate }) {
               <button
                 key={key}
                 onClick={() => onNavigate(key)}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
-                  currentPage === key
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${currentPage === key
                     ? 'bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-400'
                     : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700'
-                }`}
+                  }`}
               >
                 {label}
               </button>
             ))}
           </div>
-
-          {/* Theme toggle */}
-          <ThemeToggle />
         </div>
 
         {/* Mobile nav */}
@@ -47,11 +41,10 @@ export default function Navbar({ currentPage, onNavigate }) {
             <button
               key={key}
               onClick={() => onNavigate(key)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors duration-200 ${
-                currentPage === key
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors duration-200 ${currentPage === key
                   ? 'bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-400'
                   : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700'
-              }`}
+                }`}
             >
               {label}
             </button>
