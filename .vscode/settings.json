@@ -1,0 +1,19 @@
+{
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-21",
+      "path": "/Users/sweeky/Library/Java/JavaVirtualMachines/ms-21.0.10/Contents/Home",
+      "default": true
+    }
+  ],
+  "java.jdt.ls.java.home": "/Users/sweeky/Library/Java/JavaVirtualMachines/ms-21.0.10/Contents/Home",
+  "editor.formatOnSave": true,
+  "files.exclude": {
+    "**/.gradle": true,
+    "**/build": true,
+    "**/.settings": true,
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.factorypath": true
+  }
+}

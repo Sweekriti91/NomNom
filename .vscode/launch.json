@@ -1,0 +1,50 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Launch API Gateway",
+      "request": "launch",
+      "mainClass": "com.nomnom.gateway.ApiGatewayApplication",
+      "projectName": "api-gateway"
+    },
+    {
+      "type": "java",
+      "name": "Launch Order Service",
+      "request": "launch",
+      "mainClass": "com.nomnom.order.OrderServiceApplication",
+      "projectName": "order-service"
+    },
+    {
+      "type": "java",
+      "name": "Launch Restaurant Service",
+      "request": "launch",
+      "mainClass": "com.nomnom.restaurant.RestaurantServiceApplication",
+      "projectName": "restaurant-service"
+    },
+    {
+      "type": "java",
+      "name": "Launch Notification Service",
+      "request": "launch",
+      "mainClass": "com.nomnom.notification.NotificationServiceApplication",
+      "projectName": "notification-service"
+    },
+    {
+      "type": "editor-browser",
+      "name": "Open Frontend in Integrated Browser",
+      "request": "launch",
+      "url": "http://localhost:5173"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Launch All Services",
+      "configurations": [
+        "Launch API Gateway",
+        "Launch Order Service",
+        "Launch Restaurant Service",
+        "Launch Notification Service"
+      ]
+    }
+  ]
+}
