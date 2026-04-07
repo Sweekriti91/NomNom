@@ -8,6 +8,7 @@ build/
 *.iml
 *.iws
 *.ipr
+.vscode/settings.json
 
 # OS
 .DS_Store
