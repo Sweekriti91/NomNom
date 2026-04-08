@@ -56,8 +56,8 @@ public class DeliveryTrackingService {
         response.setId(tracking.getId());
         response.setOrderId(tracking.getOrderId());
 
-        // BUG #1: Null pointer — driverName may be null when driver not yet assigned
-        response.setDriverName(tracking.getDriverName().toUpperCase());
+        var driverName = tracking.getDriverName();
+        response.setDriverName(driverName != null ? driverName.toUpperCase() : null);
 
         response.setDriverPhone(tracking.getDriverPhone());
         response.setEtaMinutes(tracking.getEtaMinutes());
