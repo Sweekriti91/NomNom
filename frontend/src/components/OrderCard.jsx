@@ -1,7 +1,9 @@
 import StatusBadge from './StatusBadge';
+import OrderProgressBar from './OrderProgressBar';
+import DeliveryETA from './DeliveryETA';
 
 export default function OrderCard({ order, onUpdateStatus, onCancel }) {
-  const { customerName, restaurantId, items, status, totalAmount } = order;
+  const { customerName, restaurantId, items, status, totalAmount, createdAt } = order;
 
   const nextStatus = {
     PLACED: 'CONFIRMED',
@@ -19,6 +21,10 @@ export default function OrderCard({ order, onUpdateStatus, onCancel }) {
         </div>
         <StatusBadge status={status} />
       </div>
+
+      <OrderProgressBar status={status} />
+
+      <DeliveryETA status={status} createdAt={createdAt} />
 
       {items && items.length > 0 && (
         <div className="text-sm text-gray-600 dark:text-gray-400">
