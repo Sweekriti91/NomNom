@@ -1,5 +1,6 @@
 package com.nomnom.notification.service;
 
+import com.nomnom.notification.exception.ResourceNotFoundException;
 import com.nomnom.notification.model.Notification;
 import com.nomnom.notification.model.NotificationType;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,7 @@ public class NotificationService {
     public Notification markAsRead(String id) {
         var notification = notifications.get(id);
         if (notification == null) {
-            throw new RuntimeException("Notification not found with id: " + id);
+            throw new ResourceNotFoundException("Notification not found with id: " + id);
         }
         notification.setRead(true);
         return notification;

@@ -1,6 +1,7 @@
 package com.nomnom.restaurant.service;
 
 import com.nomnom.restaurant.dto.*;
+import com.nomnom.restaurant.exception.ResourceNotFoundException;
 import com.nomnom.restaurant.model.MenuItem;
 import com.nomnom.restaurant.model.Restaurant;
 import com.nomnom.restaurant.repository.MenuItemRepository;
@@ -40,14 +41,14 @@ public class RestaurantService {
 
     public RestaurantResponse getRestaurantWithMenu(Long id) {
         var restaurant = restaurantRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Restaurant not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Restaurant not found with id: " + id));
         var menuItems = menuItemRepository.findByRestaurantId(id);
         return mapToResponse(restaurant, menuItems);
     }
 
     public RestaurantResponse toggleOpenClosed(Long id) {
         var restaurant = restaurantRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Restaurant not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Restaurant not found with id: " + id));
         restaurant.setIsOpen(!restaurant.getIsOpen());
         var saved = restaurantRepository.save(restaurant);
         return mapToResponse(saved, menuItemRepository.findByRestaurantId(id));
@@ -55,7 +56,7 @@ public class RestaurantService {
 
     public MenuItemResponse addMenuItem(Long restaurantId, CreateMenuItemRequest request) {
         restaurantRepository.findById(restaurantId)
-                .orElseThrow(() -> new RuntimeException("Restaurant not found with id: " + restaurantId));
+                .orElseThrow(() -> new ResourceNotFoundException("Restaurant not found with id: " + restaurantId));
 
         var menuItem = new MenuItem();
         menuItem.setName(request.getName());
