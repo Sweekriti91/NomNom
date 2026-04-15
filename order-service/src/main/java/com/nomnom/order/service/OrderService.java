@@ -2,6 +2,7 @@ package com.nomnom.order.service;
 
 import com.nomnom.order.dto.CreateOrderRequest;
 import com.nomnom.order.dto.OrderResponse;
+import com.nomnom.order.exception.ResourceNotFoundException;
 import com.nomnom.order.model.Order;
 import com.nomnom.order.model.OrderStatus;
 import com.nomnom.order.repository.OrderRepository;
@@ -32,7 +33,7 @@ public class OrderService {
 
     public OrderResponse getOrderById(Long id) {
         var order = orderRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Order not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found with id: " + id));
         return mapToResponse(order);
     }
 
@@ -50,7 +51,7 @@ public class OrderService {
 
     public OrderResponse updateOrderStatus(Long id, OrderStatus status) {
         var order = orderRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Order not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found with id: " + id));
         order.setStatus(status);
         var saved = orderRepository.save(order);
         return mapToResponse(saved);
