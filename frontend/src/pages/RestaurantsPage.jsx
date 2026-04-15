@@ -7,6 +7,8 @@ export default function RestaurantsPage() {
   const [loading, setLoading] = useState(true);
   const [menuData, setMenuData] = useState(null);
   const [menuFor, setMenuFor] = useState(null);
+  const [menuForm, setMenuForm] = useState({ name: '', price: '', description: '' });
+  const [menuSubmitting, setMenuSubmitting] = useState(false);
 
   const load = async () => {
     try {
@@ -30,6 +32,7 @@ export default function RestaurantsPage() {
     if (menuFor === restaurant.id) {
       setMenuFor(null);
       setMenuData(null);
+      setMenuForm({ name: '', price: '', description: '' });
       return;
     }
     try {
@@ -39,6 +42,25 @@ export default function RestaurantsPage() {
     } catch {
       setMenuData([]);
       setMenuFor(restaurant.id);
+    }
+  };
+
+  const handleAddMenuItem = async (e, restaurantId) => {
+    e.preventDefault();
+    setMenuSubmitting(true);
+    try {
+      await api.addMenuItem(restaurantId, {
+        name: menuForm.name,
+        price: parseFloat(menuForm.price),
+        description: menuForm.description || undefined,
+      });
+      setMenuForm({ name: '', price: '', description: '' });
+      const data = await api.getMenu(restaurantId);
+      setMenuData(Array.isArray(data) ? data : []);
+    } catch {
+      // ignore (error handling tracked in issue #20)
+    } finally {
+      setMenuSubmitting(false);
     }
   };
 
@@ -78,6 +100,37 @@ export default function RestaurantsPage() {
                   ) : (
                     <p className="text-sm text-gray-500 dark:text-gray-400">No menu items found.</p>
                   )}
+
+                  <hr className="my-3 border-gray-200 dark:border-gray-700" />
+                  <h5 className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">Add Item</h5>
+                  <form onSubmit={(e) => handleAddMenuItem(e, r.id)} className="space-y-2">
+                    <input
+                      className="input text-sm"
+                      placeholder="Name"
+                      value={menuForm.name}
+                      onChange={(e) => setMenuForm({ ...menuForm, name: e.target.value })}
+                      required
+                    />
+                    <input
+                      className="input text-sm"
+                      type="number"
+                      step="0.01"
+                      min="0"
+                      placeholder="Price ($)"
+                      value={menuForm.price}
+                      onChange={(e) => setMenuForm({ ...menuForm, price: e.target.value })}
+                      required
+                    />
+                    <input
+                      className="input text-sm"
+                      placeholder="Description (optional)"
+                      value={menuForm.description}
+                      onChange={(e) => setMenuForm({ ...menuForm, description: e.target.value })}
+                    />
+                    <button type="submit" className="btn-primary text-sm w-full" disabled={menuSubmitting}>
+                      {menuSubmitting ? 'Adding…' : 'Add Item'}
+                    </button>
+                  </form>
                 </div>
               )}
             </div>

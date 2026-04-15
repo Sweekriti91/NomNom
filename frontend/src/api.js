@@ -13,6 +13,12 @@ export const api = {
   toggleRestaurant: (id) =>
     fetch(`${BASE_URL}/restaurants/${id}/toggle`, { method: 'PUT' }).then(r => r.json()),
   getMenu: (id) => fetch(`${BASE_URL}/restaurants/${id}/menu`).then(r => r.json()),
+  addMenuItem: (id, data) =>
+    fetch(`${BASE_URL}/restaurants/${id}/menu`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    }).then(r => r.json()),
 
   // orders
   getOrders: () => fetch(`${BASE_URL}/orders`).then(r => r.json()),
