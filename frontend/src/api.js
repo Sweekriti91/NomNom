@@ -13,6 +13,25 @@ export const api = {
   toggleRestaurant: (id) =>
     fetch(`${BASE_URL}/restaurants/${id}/toggle`, { method: 'PUT' }).then(r => r.json()),
   getMenu: (id) => fetch(`${BASE_URL}/restaurants/${id}/menu`).then(r => r.json()),
+  addMenuItem: (id, data) =>
+    fetch(`${BASE_URL}/restaurants/${id}/menu`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    }).then(async (r) => {
+      let body = null;
+      try {
+        body = await r.json();
+      } catch {
+        body = null;
+      }
+
+      if (!r.ok) {
+        throw new Error(body?.message || body?.error || `Request failed with status ${r.status}`);
+      }
+
+      return body;
+    }),
 
   // orders
   getOrders: () => fetch(`${BASE_URL}/orders`).then(r => r.json()),
