@@ -35,6 +35,8 @@ export default function RestaurantsPage() {
       setMenuForm({ name: '', price: '', description: '' });
       return;
     }
+
+    setMenuForm({ name: '', price: '', description: '' });
     try {
       const data = await api.getMenu(restaurant.id);
       setMenuData(Array.isArray(data) ? data : []);

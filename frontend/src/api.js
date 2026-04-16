@@ -18,7 +18,20 @@ export const api = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
-    }).then(r => r.json()),
+    }).then(async (r) => {
+      let body = null;
+      try {
+        body = await r.json();
+      } catch {
+        body = null;
+      }
+
+      if (!r.ok) {
+        throw new Error(body?.message || body?.error || `Request failed with status ${r.status}`);
+      }
+
+      return body;
+    }),
 
   // orders
   getOrders: () => fetch(`${BASE_URL}/orders`).then(r => r.json()),
